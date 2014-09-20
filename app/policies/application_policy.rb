@@ -23,7 +23,7 @@ class ApplicationPolicy
   end
 
   def update?
-    user.present? && (record.user == user || user.role?(:admin))
+     user.present? && (record.user == user || user.role?(:admin))
   end
 
   def edit?
@@ -34,21 +34,16 @@ class ApplicationPolicy
     update?
   end
 
-   def scope
-    record.class
+  def scope
+     record.class
   end
 
-  class Scope
-    attr_reader :user, :scope
+  private 
 
-    def initialize(user, scope)
-      @user = user
-      @scope = scope
-    end
+  def can_moderate?(user, record)
+    user = @user
+    record = @record.user
 
-    def resolve
-      scope
-    end
+    user.present? &&(record == user || user.role?(:admin) || user.role?(:moderator))
   end
 end
-

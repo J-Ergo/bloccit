@@ -22,6 +22,11 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
     @post.topic = @topic
     authorize @post
+    if @post.save
+      redirect_to [@topic, @post]
+    else
+      redirect_to [@topic, @post]
+    end
   end
 
   def update

@@ -1,2 +1,2 @@
-class VotePolicy < ApplicationPolicy
+class FavoritePolicy < ApplicationPolicy
 end

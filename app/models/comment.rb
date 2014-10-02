@@ -18,7 +18,7 @@ after_create :send_favorite_emails
        end
      end
    end
-   
+
    def should_receive_update_for?(favorite)
      user_id != favorite.user_id && favorite.user.email_favorites?
    end

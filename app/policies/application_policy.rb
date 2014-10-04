@@ -11,7 +11,7 @@ class ApplicationPolicy
   end
 
   def show?
-    scope.where(:id => record.id).exists?
+    scope.where(id: record.id).exists?
   end
 
   def create?
@@ -23,7 +23,7 @@ class ApplicationPolicy
   end
 
   def update?
-     user.present? && (record.user == user || user.role?(:admin))
+    user.present? && (record.user == user || user.role?(:admin))
   end
 
   def edit?
@@ -35,15 +35,12 @@ class ApplicationPolicy
   end
 
   def scope
-     record.class
+    record.class
   end
 
-  private 
+  private
 
   def can_moderate?(user, record)
-    user = @user
-    record = @record.user
-
-    user.present? &&(record == user || user.role?(:admin) || user.role?(:moderator))
+    (record.user == user || user.role?(:admin) || user.role?(:moderator))
   end
 end
